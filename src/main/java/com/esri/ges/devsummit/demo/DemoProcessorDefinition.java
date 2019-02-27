@@ -15,7 +15,7 @@ public class DemoProcessorDefinition extends GeoEventProcessorDefinitionBase
 
   public DemoProcessorDefinition() throws PropertyException
   {
-    propertyDefinitions.put(TIME_WINDOW, new PropertyDefinition(TIME_WINDOW, PropertyType.Date, 5, time_window_lbl, time_window_desc, null, true, false));
+    propertyDefinitions.put(TIME_WINDOW, new PropertyDefinition(TIME_WINDOW, PropertyType.String, 5, time_window_lbl, time_window_desc, null, true, false));
   }
 
   @Override
