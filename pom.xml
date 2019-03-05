@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.esri.ges.devsummit.demo</groupId>
+    <groupId>com.esri.geoevent.devsummit.demo</groupId>
     <artifactId>devsummit-demo</artifactId>
     <version>1.0.0</version>
     <packaging>bundle</packaging>
@@ -54,7 +54,7 @@
                     <Bundle-ContactAddress>youremailaddress@domain.com</Bundle-ContactAddress>
                     <Bundle-Version>${project.version}</Bundle-Version>
                     <Export-Package/>
-                    <Private-Package>com.esri.ges.devsummit.demo</Private-Package>
+                    <Private-Package>com.esri.geoevent.devsummit.demo</Private-Package>
                 </instructions>
             </configuration>
         </plugin>

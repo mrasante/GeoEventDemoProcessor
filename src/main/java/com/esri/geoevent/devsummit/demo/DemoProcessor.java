@@ -1,14 +1,17 @@
-package com.esri.ges.devsummit.demo;
+package com.esri.geoevent.devsummit.demo;
 
 import com.esri.ges.core.ConfigurationException;
 import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.geoevent.*;
+import com.esri.ges.core.validation.ValidationException;
+import com.esri.ges.framework.i18n.BundleLogger;
+import com.esri.ges.framework.i18n.BundleLoggerFactory;
 import com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager;
 import com.esri.ges.messaging.Messaging;
 import com.esri.ges.processor.GeoEventProcessorBase;
 import com.esri.ges.processor.GeoEventProcessorDefinition;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.esri.ges.util.Converter;
+import com.esri.ges.util.Validator;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,16 +24,27 @@ public class DemoProcessor extends GeoEventProcessorBase
   Messaging                 messaging;
   GeoEventDefinitionManager geoEventDefinitionManager;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DemoProcessor.class);
-
-  private boolean isMutated;
-  private String  timeWindow;
-  private boolean isProcessing = true;
-  private int     counter      = 0;
+  //private static final Logger LOGGER = LoggerFactory.getLogger(DemoProcessor.class);
+  private static final BundleLogger LOGGER       = BundleLoggerFactory.getLogger(DemoProcessor.class);
+  private              boolean      isMutated;
+  private              String       timeWindow;
+  private              boolean      isProcessing = true;
+  private              int          counter      = 0;
+  private              Integer      incrementer;
 
   public DemoProcessor(GeoEventProcessorDefinition definition) throws ComponentException
   {
     super(definition);
+  }
+
+  @Override
+  public synchronized void validate() throws ValidationException
+  {
+    super.validate();
+    if (Integer.parseInt(timeWindow) <= 0)
+    {
+      throw new ValidationException(LOGGER.translate("VALIDATION_ERROR"));
+    }
   }
 
   private LocalDateTime convertToModernDate(Date date)
@@ -41,7 +55,8 @@ public class DemoProcessor extends GeoEventProcessorBase
   @Override
   public void afterPropertiesSet()
   {
-    timeWindow = getProperty(DemoProcessorDefinition.TIME_WINDOW).getValueAsString();
+    timeWindow = Validator.compactWhiteSpaces(getProperty(DemoProcessorDefinition.TIME_WINDOW).getValueAsString());
+    incrementer = Converter.convertToInteger(timeWindow, 5);
   }
 
   @Override
@@ -54,7 +69,7 @@ public class DemoProcessor extends GeoEventProcessorBase
     Date date;
     LocalDateTime receivedTime;
     LocalDateTime processingStartTime = counter == 0 ? now : timerCache.get(0);
-    LocalDateTime processingEndTime = processingStartTime.withSecond(Integer.parseInt(timeWindow));
+    LocalDateTime processingEndTime = processingStartTime.withSecond(incrementer);
 
     date = geoEvent.getReceivedTime();
     receivedTime = convertToModernDate(date);
@@ -114,6 +129,13 @@ public class DemoProcessor extends GeoEventProcessorBase
   }
 
   @Override
+  public void shutdown()
+  {
+    super.shutdown();
+    //Any clean-up code when the server is shuts down.
+  }
+
+  @Override
   public boolean isGeoEventMutator()
   {
     return this.isMutated;
@@ -122,14 +144,14 @@ public class DemoProcessor extends GeoEventProcessorBase
   @Override
   public void onServiceStart()
   {
-    super.onServiceStart();
+    //Implement service initial logic as needed
     LOGGER.info("Starting DevSummit Processor Demo......");
   }
 
   @Override
   public void onServiceStop()
   {
-    super.onServiceStop();
+    //Implement service shutdown logic as needed. Clean-up code
     LOGGER.info("Stopping demo processor.....");
   }
 

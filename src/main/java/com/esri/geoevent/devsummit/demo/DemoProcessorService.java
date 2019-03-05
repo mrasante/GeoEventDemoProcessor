@@ -1,4 +1,4 @@
-package com.esri.ges.devsummit.demo;
+package com.esri.geoevent.devsummit.demo;
 
 import com.esri.ges.core.component.ComponentException;
 import com.esri.ges.core.property.PropertyException;

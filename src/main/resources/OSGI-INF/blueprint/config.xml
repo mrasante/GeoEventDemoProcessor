@@ -6,7 +6,7 @@
                interface="com.esri.ges.manager.geoeventdefinition.GeoEventDefinitionManager" />
     <reference id="messagingService" interface="com.esri.ges.messaging.Messaging" />
     <bean id="demoProcessorServiceBean"
-          class="com.esri.ges.devsummit.demo.DemoProcessorService">
+          class="com.esri.geoevent.devsummit.demo.DemoProcessorService">
         <property name="bundleContext" ref="blueprintBundleContext" />
         <property name="manager" ref="geoDefManagerService" />
         <property name="messaging" ref="messagingService" />
