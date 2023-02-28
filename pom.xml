@@ -7,26 +7,35 @@
     <groupId>com.esri.geoevent.devsummit.demo</groupId>
     <artifactId>devsummit-demo</artifactId>
     <version>1.0.0</version>
-    <packaging>bundle</packaging>
+    <packaging>pom</packaging>
 
     <name>DevSummit :: Demo :: Processor</name>
 
-<dependencies>
-    <dependency>
-        <groupId>com.esri.geoevent.sdk</groupId>
-        <artifactId>geoevent-sdk</artifactId>
-        <version>10.6.1</version>
-    </dependency>
+
+    <modules>
+        <module>modifygeoevent</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.esri.geoevent.sdk</groupId>
+                <artifactId>geoevent-sdk</artifactId>
+                <version>10.7.0</version>
+            </dependency>
 
 
-    <!-- Test Frameworks -->
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>LATEST</version>
-        <scope>test</scope>
-    </dependency>
-</dependencies>
+            <!-- Test Frameworks -->
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>LATEST</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
 
 <build>
     <pluginManagement>
@@ -36,8 +45,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.0</version>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
         </plugins>
