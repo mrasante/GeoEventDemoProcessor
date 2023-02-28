@@ -11,9 +11,23 @@
 
     <name>DevSummit :: Demo :: Processor</name>
 
+    <properties>
+        <project.release>1</project.release>
+        <geoevent-sdk.revision>10.7.0</geoevent-sdk.revision>
+
+        <maven.bundle.plugin.version>5.1.2</maven.bundle.plugin.version>
+        <maven.resources.plugin.version>3.2.0</maven.resources.plugin.version>
+        <maven.compiler.plugin.version>3.8.1</maven.compiler.plugin.version>
+        <junit.version>5.3.1</junit.version>
+
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.build.propertiesEncoding>ISO-8859-1</project.build.propertiesEncoding>
+        <contact.address>youremailaddress@domain.com</contact.address>
+    </properties>
 
     <modules>
         <module>modifygeoevent</module>
+        <module>ratelimit-processor</module>
     </modules>
 
     <dependencyManagement>
@@ -21,7 +35,7 @@
             <dependency>
                 <groupId>com.esri.geoevent.sdk</groupId>
                 <artifactId>geoevent-sdk</artifactId>
-                <version>10.7.0</version>
+                <version>${geoevent-sdk.revision}</version>
             </dependency>
 
 
@@ -30,6 +44,25 @@
                 <groupId>org.mockito</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>LATEST</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>
